@@ -16,7 +16,7 @@ jobs:
           gofmt .
           exit $?
   go_vet:
-     name: GO vet
+     name: GO VET
      runs-on: ubuntu-latest
      steps:
       - uses: actions/checkout@v3
@@ -27,6 +27,20 @@ jobs:
           ls -l
           echo "Running go vet"
           go vet -json -c=2 ./...
+          exit $?
+  go_imports:
+     name: GO Imports
+     runs-on: ubuntu-latest
+     steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '>=1.17.19'
+      - run: |
+          ls -l
+          echo "Running go vet"
+          
+          goimports ./...
           exit $?
   sonarcloud:
     name: SonarCloud
